@@ -3,15 +3,15 @@
 // html in. the "spa" feel comes from just swapping #doc-view's innerHTML
 // and pushing a hash, nothing fancier than that.
 
-const fileTreeEl   = document.getElementById("file-tree");
-const docViewEl    = document.getElementById("doc-view");
+const fileTreeEl    = document.getElementById("file-tree");
+const docViewEl     = document.getElementById("doc-view");
 const emptySearchEl = document.getElementById("empty-search");
 const searchInputEl = document.getElementById("search-input");
-const docCountEl   = document.getElementById("doc-count");
-const docMetaEl    = document.getElementById("doc-meta");
-const metaPathEl   = document.getElementById("meta-path");
-const metaWordsEl  = document.getElementById("meta-words");
-const metaReadEl   = document.getElementById("meta-read");
+const docCountEl    = document.getElementById("doc-count");
+const docMetaEl     = document.getElementById("doc-meta");
+const metaPathEl    = document.getElementById("meta-path");
+const metaWordsEl   = document.getElementById("meta-words");
+const metaReadEl    = document.getElementById("meta-read");
 const themeToggleEl = document.getElementById("theme-toggle");
 
 let activeFile = null;
@@ -150,13 +150,27 @@ function highlightActiveTreeItem(file) {
 // a handful of files - revisit if this ever grows past ~30 docs.
 
 function setupSearch() {
-  searchInputEl.addEventListener("input", (e) => {
-    const q = e.target.value.trim().toLowerCase();
+  const clearBtn = document.getElementById("search-clear");
+  const emptyClearBtn = document.getElementById("empty-search-clear");
+
+  searchInputEl.addEventListener("input", (e) => runSearch(e.target.value));
+
+  searchInputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") clearSearch();
+  });
+
+  clearBtn.addEventListener("click", clearSearch);
+  emptyClearBtn.addEventListener("click", clearSearch);
+
+  function runSearch(rawQuery) {
+    const q = rawQuery.trim().toLowerCase();
+    clearBtn.classList.toggle("hidden", q.length === 0);
+
     let anyVisible = false;
 
     document.querySelectorAll(".tree-item").forEach((el) => {
       const title = el.querySelector(".file-title").textContent.toLowerCase();
-      const visible = title.includes(q);
+      const visible = q === "" || title.includes(q);
       el.style.display = visible ? "" : "none";
       if (visible) anyVisible = true;
     });
@@ -168,14 +182,24 @@ function setupSearch() {
       group.style.display = hasVisible ? "" : "none";
     });
 
+    // when there's no match, the old meta bar sitting there looks like
+    // leftover state rather than a response to the search - hide it
     if (q && !anyVisible) {
       docViewEl.classList.add("hidden");
+      docMetaEl.classList.add("hidden");
       emptySearchEl.classList.remove("hidden");
     } else {
       docViewEl.classList.remove("hidden");
       emptySearchEl.classList.add("hidden");
+      if (activeFile && q === "") docMetaEl.classList.remove("hidden");
     }
-  });
+  }
+
+  function clearSearch() {
+    searchInputEl.value = "";
+    runSearch("");
+    searchInputEl.focus();
+  }
 }
 
 // ---- theme -----------------------------------------------------------
