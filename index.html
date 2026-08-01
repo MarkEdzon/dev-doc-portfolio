@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dev-doc-portfolio</title>
+  <meta name="description" content="Docs and dev logs, rendered straight from markdown." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- top bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="prompt">~/</span><span class="repo-name">dev-doc-portfolio</span>
+      <span class="cursor-blink">_</span>
+    </div>
+    <div class="topbar-right">
+      <button id="theme-toggle" aria-label="toggle theme" title="toggle theme">◐</button>
+      <a href="https://github.com/" id="github-link" target="_blank" rel="noopener">github ↗</a>
+    </div>
+  </header>
+
+  <div class="shell">
+
+    <!-- sidebar: file tree -->
+    <aside class="sidebar" id="sidebar">
+      <div class="search-box">
+        <span class="search-icon">/</span>
+        <input type="text" id="search-input" placeholder="search docs..." autocomplete="off" />
+      </div>
+
+      <nav id="file-tree" class="file-tree" aria-label="document list">
+        <!-- populated by app.js -->
+        <p class="tree-loading">reading directory...</p>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span id="doc-count">0 files</span>
+      </div>
+    </aside>
+
+    <!-- main content -->
+    <main class="content">
+
+      <div id="doc-meta" class="doc-meta hidden">
+        <span id="meta-path">—</span>
+        <span class="meta-sep">·</span>
+        <span id="meta-words">0 words</span>
+        <span class="meta-sep">·</span>
+        <span id="meta-read">0 min read</span>
+      </div>
+
+      <article id="doc-view" class="doc-view">
+        <div class="welcome">
+          <h1>dev-doc-portfolio</h1>
+          <p class="welcome-sub">A folder of markdown files, rendered on the fly. No build step, no framework — pick a file from the left to start reading.</p>
+
+          <div class="welcome-grid">
+            <div class="welcome-card">
+              <span class="welcome-tag">01</span>
+              <h3>Write in markdown</h3>
+              <p>Drop a <code>.md</code> file into <code>/docs</code>. Headings, fenced code blocks, tables, all of it — standard stuff.</p>
+            </div>
+            <div class="welcome-card">
+              <span class="welcome-tag">02</span>
+              <h3>It parses client-side</h3>
+              <p>The browser fetches the raw file and runs it through marked.js. No server, no database, no CMS to babysit.</p>
+            </div>
+            <div class="welcome-card">
+              <span class="welcome-tag">03</span>
+              <h3>Ship with Pages</h3>
+              <p>Push to <code>main</code>, GitHub Pages rebuilds nothing because there's nothing to build. It's already static.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div id="empty-search" class="empty-search hidden">
+        <p>no docs match that search</p>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <span>built with vanilla js + marked.js — deployed on github pages</span>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="js/manifest.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
