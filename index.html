@@ -33,6 +33,7 @@
       <div class="search-box">
         <span class="search-icon">/</span>
         <input type="text" id="search-input" placeholder="search docs..." autocomplete="off" />
+        <button id="search-clear" class="search-clear hidden" aria-label="clear search" title="clear search">×</button>
       </div>
 
       <nav id="file-tree" class="file-tree" aria-label="document list">
@@ -82,7 +83,10 @@
       </article>
 
       <div id="empty-search" class="empty-search hidden">
-        <p>no docs match that search</p>
+        <p class="empty-search-glyph">/ ∅</p>
+        <p class="empty-search-title">nothing matches that search</p>
+        <p class="empty-search-sub">try a different word, or</p>
+        <button id="empty-search-clear" class="empty-search-btn">clear search</button>
       </div>
 
     </main>
